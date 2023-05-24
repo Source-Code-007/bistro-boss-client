@@ -1,10 +1,12 @@
-import Banner from "./Banner";
+import Banner from "./Banner/Banner";
+import MenuCategory from "./MenuCategory/MenuCategory";
 import './homepage.css'
 
 const Homepage = () => {
     return (
         <>
-            <Banner></Banner>
+        <Banner></Banner>
+            <MenuCategory></MenuCategory>
         </>
     );
 };

@@ -11,7 +11,7 @@ const Nav = () => {
         <li><UseActiveLink to='/shop'>Our Shop</UseActiveLink></li>
     </>
     return (
-        <div className="navbar bg-slate-500 bg-opacity-25">
+        <div className="navbar bg-slate-800 bg-opacity-40 text-slate-50 fixed left-0 top-0 z-50">
             <div className="justify-between w-full lg:navbar-start">
                 <Link to={'/'} className="btn btn-ghost normal-case text-xl"><img className="w-14 h-auto" src={logo} alt="" /></Link>
                 <div className="dropdown">
