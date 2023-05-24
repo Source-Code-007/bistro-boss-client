@@ -9,16 +9,16 @@ const Banner = () => {
     return (
         <Carousel showArrows={true} >
                 <div className="h-[92vh]">
-                    <img className="" src={slideOne} />
+                    <img className="h-full" src={slideOne} />
                 </div>
                 <div className="h-[92vh]">
-                    <img className="" src={slideTwo} />
+                    <img className="h-full" src={slideTwo} />
                 </div>
                 <div className="h-[92vh]">
-                    <img className="" src={slideThree} />
+                    <img className="h-full" src={slideThree} />
                 </div>
                 <div className="h-[92vh]">
-                    <img className="" src={slideFour} />
+                    <img className="h-full" src={slideFour} />
                 </div>
             </Carousel>
     );
