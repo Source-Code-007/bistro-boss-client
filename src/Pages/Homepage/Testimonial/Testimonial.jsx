@@ -4,7 +4,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper";
 import { useEffect, useState } from "react";
-import { FaQuoteLeft } from "react-icons/fa";
+import { FaQuoteLeft, FaStar } from "react-icons/fa";
+import Rating from "react-rating";
 
 const Testimonial = () => {
     const [reviews, setReviews] = useState([])
@@ -18,18 +19,23 @@ const Testimonial = () => {
     }, [])
 
     return (
-        <div className="my-container">
+        <div className="my-container py-16">
             <UseSectionTitle
                 heading='testimonials'
-                subHeading='What Our Client Say'
+                subHeading='What Our Clients Say'
             ></UseSectionTitle>
 
             <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
                 {reviews.map(review => {
                     const { name, details, rating } = review
                     return <SwiperSlide key={review._id}>
-                        <div className="text-center space-y-5 px-36">
-                            <h2>{rating}</h2>
+                        <div className="text-center space-y-8 px-36">
+                            <Rating
+                                initialRating={rating}
+                                emptySymbol={<FaStar className="text-slate-200 text-3xl"></FaStar>}
+                                fullSymbol={<FaStar className="text-orange-500 text-3xl"></FaStar>}
+                                readonly
+                            />
                             <span className="flex justify-center text-6xl"><FaQuoteLeft></FaQuoteLeft></span>
                             <p>{details}</p>
                             <h2 className="font-bold text-3xl text-orange-500">{name}</h2>

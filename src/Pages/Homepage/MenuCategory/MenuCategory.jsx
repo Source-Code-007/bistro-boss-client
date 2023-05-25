@@ -29,6 +29,7 @@ const MenuCategory = () => {
             img: categoryImgFour
         },
     ]
+    
     return (
         <div className="py-20">
            <div className="my-container">
@@ -60,8 +61,8 @@ const MenuCategory = () => {
                 className="mySwiper"
             >
                 {
-                    menuCategoryItem.map((menu,ind) => {
-                        return <SwiperSlide key={ind} className="relative mb-8">
+                    menuCategoryItem.map((menu) => {
+                        return <SwiperSlide key={menu.menuTitle} className="relative mb-8">
                             <img className="h-[400px] lg:h-[550px] w-full" src={menu.img} alt="" />
                             <h2 className="uppercase font-bold text-3xl text-white absolute bottom-3 left-1/2 -translate-x-1/2">{menu.menuTitle}</h2>
                         </SwiperSlide>

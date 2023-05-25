@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import UseMenuContext from "../../../Context/UseMenuContext";
-import CommonItemsLayout from "../../../HelpingCompo/CommonItemsLayout";
 import UseSectionTitle from "../../../HelpingCompo/UseSectionTitle";
+import CommonItem from "../../../HelpingCompo/CommonItem";
 
 const PopularMenu = () => {
     const [menu] = UseMenuContext()
@@ -24,14 +24,16 @@ const PopularMenu = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 py-10">
                 {
-                    menu.slice(startIndex, endIndex).map(item => <CommonItemsLayout key={item._id} item={item}></CommonItemsLayout>)
+
+                    menu.slice(startIndex, endIndex).map((item, ind) => <CommonItem key={item.name + ind} item={item}></CommonItem>)
                 }
             </div>
+
             {/* pagination button */}
             <div className="text-center space-x-2">
-            {totalPage.map((page, ind) => <button key={ind} onClick={() => setCurrentPage(page)} className={`btn btn-success px-5 ${page!==currentPage? 'btn-outline' : '' }`}>{page}</button>)}
+                {totalPage.map((page, ind) => <button key={ind} onClick={() => setCurrentPage(page)} className={`btn btn-success px-5 ${page !== currentPage ? 'btn-outline' : ''}`}>{page}</button>)}
             </div>
-            
+
         </div>
     );
 };

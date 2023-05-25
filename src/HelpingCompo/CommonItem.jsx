@@ -1,4 +1,4 @@
-const CommonItemsLayout = ({item}) => {
+const CommonItem = ({item}) => {
     const {image, name, recipe, price} = item
     return (
         <div className='flex gap-4'>
@@ -12,4 +12,4 @@ const CommonItemsLayout = ({item}) => {
     );
 };
 
-export default CommonItemsLayout;
+export default CommonItem;
