@@ -9,6 +9,7 @@ const Nav = () => {
         <li><UseActiveLink to='/dashboard'>Dashboard</UseActiveLink></li>
         <li><UseActiveLink to='/our-menu'>Our Menu</UseActiveLink></li>
         <li><UseActiveLink to='/shop'>Our Shop</UseActiveLink></li>
+        <li><UseActiveLink to='/signin'>Signin</UseActiveLink></li>
     </>
     return (
         <div className="navbar bg-slate-800 bg-opacity-40 text-slate-50 fixed left-0 top-0 z-50">
