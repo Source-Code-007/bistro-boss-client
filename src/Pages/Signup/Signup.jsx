@@ -1,18 +1,16 @@
-import { Link } from 'react-router-dom';
-import signinLottie from '../../../public/38435-register.json'
 import Lottie from "lottie-react";
-
-const Signin = () => {
-    
+import signupLottie from '../../../public/registration-animation.json'
+import { Link } from "react-router-dom";
+const Signup = () => {
     return (
-        <div className="hero min-h-screen w-full bg-base-200">
-            <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="hero min-h-screen bg-base-200">
+            <div className="hero-content w-full flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left w-3/6 flex justify-center items-center">
-                    <Lottie animationData={signinLottie} loop={true} />
+                    <Lottie animationData={signupLottie} loop={true} />
                 </div>
                 <div className="card flex-1 shadow-2xl bg-base-100">
                     <div className="card-body">
-                        <h2 className='font-bold text-3xl'>Please Login</h2>
+                        <h2 className='font-bold text-3xl'>Please register</h2>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -29,9 +27,9 @@ const Signin = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary">Login</button>
+                            <button className="btn btn-primary">signup</button>
                         </div>
-                        <p>New here? <Link to='/signup' className='btn btn-link px-0'>signup</Link></p>
+                        <p>New here? <Link to='/signin' className='btn btn-link px-0'>signin</Link></p>
                     </div>
                 </div>
             </div>
@@ -39,4 +37,4 @@ const Signin = () => {
     );
 };
 
-export default Signin;
+export default Signup;

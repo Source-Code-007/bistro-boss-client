@@ -3,6 +3,7 @@ import LayoutOne from "../Layout/LayoutOne";
 import Homepage from "../Pages/Homepage/Homepage";
 import OurMenu from "../Pages/OurMenu/OurMenu";
 import Signin from "../Pages/Signin/Signin";
+import Signup from "../Pages/Signup/Signup";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
             {
                 path: 'signin',
                 element: <Signin></Signin>
+            },
+            {
+                path: 'signup',
+                element: <Signup></Signup>
             }
         ]
     }
