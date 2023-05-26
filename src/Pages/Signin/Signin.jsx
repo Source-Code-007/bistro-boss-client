@@ -2,6 +2,7 @@ import signinLottie from '../../../public/38435-register.json'
 import Lottie from "lottie-react";
 
 const Signin = () => {
+    
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row-reverse">
