@@ -29,7 +29,7 @@ const Signup = () => {
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">signup</button>
                         </div>
-                        <p>New here? <Link to='/signin' className='btn btn-link px-0'>signin</Link></p>
+                        <p>Already registered? <Link to='/signin' className='btn btn-link px-0'>signin</Link></p>
                     </div>
                 </div>
             </div>
