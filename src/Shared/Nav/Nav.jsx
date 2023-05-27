@@ -1,15 +1,38 @@
 import { Link } from "react-router-dom";
 import UseActiveLink from "../../HelpingCompo/UseActiveLink";
 import logo from '../../assets/logo.png'
+import { useContext } from "react";
+import { authContextData } from "../../Context/AuthContext";
+import { ProgressBar, Puff } from "react-loader-spinner";
 
 const Nav = () => {
+    const { user, setUser, loading, signoutFunc } = useContext(authContextData)
+
+    // handle signout func
+    const handleSignOut = ()=>{
+        signoutFunc().then(setUser(null)).catch(e=> console.log(e.message))
+    }
+
+
     const menuItem = <>
         <li><UseActiveLink to='/'>Home</UseActiveLink></li>
         <li><UseActiveLink to='/about'>Contact Us</UseActiveLink></li>
         <li><UseActiveLink to='/dashboard'>Dashboard</UseActiveLink></li>
         <li><UseActiveLink to='/our-menu'>Our Menu</UseActiveLink></li>
         <li><UseActiveLink to='/shop'>Our Shop</UseActiveLink></li>
-        <li><UseActiveLink to='/signin'>Signin</UseActiveLink></li>
+        {
+            loading? <Puff
+            height="50"
+            width="50"
+            radius={1}
+            color="#4fa94d"
+            ariaLabel="puff-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+          />: user ? <li className="space-x-3"> <img className="w-14 h-14 !rounded-full border border-orange-500" src={user.photoURL} alt="" /> <button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button> </li> :
+                <li><UseActiveLink to='/signin'>Signin</UseActiveLink></li>
+        }
     </>
     return (
         <div className="navbar bg-slate-800 bg-opacity-40 text-slate-50 fixed left-0 top-0 z-50">

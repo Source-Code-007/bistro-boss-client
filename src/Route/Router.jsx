@@ -4,6 +4,7 @@ import Homepage from "../Pages/Homepage/Homepage";
 import OurMenu from "../Pages/OurMenu/OurMenu";
 import Signin from "../Pages/Signin/Signin";
 import Signup from "../Pages/Signup/Signup";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'our-menu',
-                element: <OurMenu></OurMenu>
+                element: <PrivateRoute><OurMenu></OurMenu></PrivateRoute>
             },
             {
                 path: 'signin',

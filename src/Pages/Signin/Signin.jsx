@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import signinLottie from '../../../public/38435-register.json'
 import Lottie from "lottie-react";
 import { useContext, useState } from 'react';
@@ -7,20 +7,24 @@ import { useForm } from 'react-hook-form';
 
 
 const Signin = () => {
-    const { signinFunc } = useContext(authContextData)
+    const { signinFunc, setLoading } = useContext(authContextData)
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
 
+    const location = useLocation()
+    const navigate = useNavigate()
+    const from = location.state?.from?.pathname || '/'
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const handleSubmitFunc = data => {
-        console.log(data);
         const {email, password} = data
         signinFunc(email, password)
-        .then(res => res.json())
         .then(data => {
             setSuccess('user signin successfully')
+            navigate(from)
         })
         .catch(e => {
+            setLoading(false)
             if (e.code === 'auth/user-not-found') {
                 setError("User not found. Please check your credentials or create a new account.");
               }
