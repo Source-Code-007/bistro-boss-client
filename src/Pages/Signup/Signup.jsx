@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import signupLottie from '../../../public/registration-animation.json'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { useContext, useState } from "react";
 import { authContextData } from "../../Context/AuthContext";
@@ -9,7 +9,8 @@ const Signup = () => {
     const [success, setSuccess] = useState('')
     const [error, setError] = useState('')
 
-    const {signupFunc, updateProfileUserFunc, emailVerificationFunc, signoutFunc} = useContext(authContextData)
+    const {signupFunc, updateProfileUserFunc, setLoading, emailVerificationFunc, signoutFunc} = useContext(authContextData)
+    const navigate = useNavigate()
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const handleSubmitFunc = data => {
@@ -17,10 +18,11 @@ const Signup = () => {
         signupFunc(email, password)
         .then(data => {
             updateProfileUserFunc(name, photo).then(()=>{
-                signoutFunc().then(()=> {}).catch(e=> console.log(e.message))
+                signoutFunc().then(()=> navigate('/signin')).catch(e=> console.log(e.message))
             }).catch(e=> setError(e.message))
         })
         .catch(e => {
+            setLoading(false)
             if (e.code === 'auth/email-already-in-use') {
                 setError("Email already used. Please try with different email.");
               }

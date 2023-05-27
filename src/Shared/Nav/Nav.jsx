@@ -3,7 +3,7 @@ import UseActiveLink from "../../HelpingCompo/UseActiveLink";
 import logo from '../../assets/logo.png'
 import { useContext } from "react";
 import { authContextData } from "../../Context/AuthContext";
-import { ProgressBar, Puff } from "react-loader-spinner";
+import { Puff } from "react-loader-spinner";
 
 const Nav = () => {
     const { user, setUser, loading, signoutFunc } = useContext(authContextData)
@@ -16,7 +16,6 @@ const Nav = () => {
 
     const menuItem = <>
         <li><UseActiveLink to='/'>Home</UseActiveLink></li>
-        <li><UseActiveLink to='/about'>Contact Us</UseActiveLink></li>
         <li><UseActiveLink to='/dashboard'>Dashboard</UseActiveLink></li>
         <li><UseActiveLink to='/our-menu'>Our Menu</UseActiveLink></li>
         <li><UseActiveLink to='/shop'>Our Shop</UseActiveLink></li>
@@ -30,8 +29,8 @@ const Nav = () => {
             wrapperStyle={{}}
             wrapperClass=""
             visible={true}
-          />: user ? <li className="space-x-3"> <img className="w-14 h-14 !rounded-full border border-orange-500" src={user.photoURL} alt="" /> <button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button> </li> :
-                <li><UseActiveLink to='/signin'>Signin</UseActiveLink></li>
+          />: user ? <><img className="w-14 h-14 !rounded-full border border-orange-500 mr-2 mb-2" src={user.photoURL} alt="" /><li className="flex items-center"><button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button></li></> :
+                <li className="flex items-stretch"><UseActiveLink to='/signin'><button className="btn btn-outline btn-error">Signin</button></UseActiveLink></li>
         }
     </>
     return (
@@ -42,7 +41,7 @@ const Nav = () => {
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </label>
-                    <ul tabIndex={0} className="menu right-0 menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                    <ul tabIndex={0} className="menu right-0 menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 text-black">
                         {menuItem}
                     </ul>
                 </div>
