@@ -16,6 +16,7 @@ const Nav = () => {
 
     const menuItem = <>
         <li><UseActiveLink to='/'>Home</UseActiveLink></li>
+        <li><UseActiveLink to='/contact-us'>Contact Us</UseActiveLink></li>
         <li><UseActiveLink to='/dashboard'>Dashboard</UseActiveLink></li>
         <li><UseActiveLink to='/our-menu'>Our Menu</UseActiveLink></li>
         <li><UseActiveLink to='/shop'>Our Shop</UseActiveLink></li>
