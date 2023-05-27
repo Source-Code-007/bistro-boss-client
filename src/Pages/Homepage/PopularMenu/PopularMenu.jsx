@@ -9,10 +9,10 @@ const PopularMenu = () => {
 
     const [itemsPerPage, setItemsPerPage] = useState(6)
     const [currentPage, setCurrentPage] = useState(0)
-    const totalPage = [...Array(Math.ceil(menu.length / itemsPerPage)).keys()]
+    const totalPage = [...Array(Math.ceil(menu.length / itemsPerPage)).keys()] // for pagination button
 
-    // Calculate starting and ending indices for the current page
-    const startIndex = (currentPage - 0) * itemsPerPage;
+    // calculate start and end index for dynamically display data via current page and items per page
+    const startIndex = currentPage * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
 
     return (
