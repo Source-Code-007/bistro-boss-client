@@ -2,13 +2,33 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import CommonParallex from "../../HelpingCompo/CommonParallex";
 import yummyShopBG from '../../assets/shop/banner21.jpg'
 import UseMenu from "../../CustomHook/UseMenu";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
+import { authContextData } from "../../Context/AuthContext";
 
 const YummyShop = () => {
+    const {user} = useContext(authContextData)
     const [menu] = UseMenu()
     const [selectedTab, setSelectedTab] = useState('salad')
     const menuItems = ['salad', 'pizza', 'soup', 'dessert', 'drinks']
+
+    // handle add to cart func
+    const handleAddToCartFunc = (item)=>{
+        delete item._id
+        const newItem = {...item, email: user.email, id: item._id}
+        const option = {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newItem) 
+        }
+        fetch('http://localhost:2500/cart-item', option)
+        .then(res=> res.json())
+        .then(data=> console.log(data))
+        .catch(e=> console.log(e.message))
+    }
+
     return (
         <div>
             <CommonParallex
@@ -28,20 +48,19 @@ const YummyShop = () => {
                     {
                         menuItems.map(menuItem => {
                             return <TabPanel key={menuItem} >
-                                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 py-12">
                                     {
-                                         menu.filter(item=> item.category === menuItem).map(yummyItem=>{
-                                            const {name, recipe, category, image} = yummyItem
-                                            // const {}
-                                            return <div key={name+69} className="card bg-base-100 shadow-xl">
-                                            <figure className="px-10 pt-10">
-                                              <img src={image} alt="Shoes" className="rounded-xl" />
+                                         menu.filter((item)=> item.category === menuItem).map((yummyItem)=>{
+                                            const {_id, name, recipe, category, image} = yummyItem
+                                            return <div key={_id} className="card bg-base-100 shadow-xl">
+                                            <figure>
+                                              <img src={image} alt="Shoes" className="rounded-t-xl w-full h-80" />
                                             </figure>
                                             <div className="card-body items-center text-center">
                                               <h2 className="card-title">{name}</h2>
                                               <p>{recipe}</p>
                                               <div className="card-actions">
-                                                <button className="btn btn-error btn-outline gap-2">Add to cart <FaCartPlus></FaCartPlus> </button>
+                                                <button onClick={()=> handleAddToCartFunc(yummyItem)} className="btn btn-error btn-outline gap-2">Add to cart <FaCartPlus></FaCartPlus> </button>
                                               </div>
                                             </div>
                                           </div>

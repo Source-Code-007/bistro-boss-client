@@ -31,7 +31,7 @@ const Nav = () => {
             wrapperClass=""
             visible={true}
           />: user ? <><img className="w-14 h-14 !rounded-full border border-orange-500 mr-2 mb-2" src={user.photoURL} alt="" /><li className="flex items-center"><button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button></li></> :
-                <li className="flex items-stretch"><UseActiveLink to='/signin'><button className="btn btn-outline btn-error">Signin</button></UseActiveLink></li>
+                <li className="flex items-stretch"><UseActiveLink to='/signin'><button className="btn btn-error">Signin</button></UseActiveLink></li>
         }
     </>
     return (
