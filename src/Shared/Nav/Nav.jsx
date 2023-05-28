@@ -19,7 +19,7 @@ const Nav = () => {
         <li><UseActiveLink to='/contact-us'>Contact Us</UseActiveLink></li>
         <li><UseActiveLink to='/dashboard'>Dashboard</UseActiveLink></li>
         <li><UseActiveLink to='/our-menu'>Our Menu</UseActiveLink></li>
-        <li><UseActiveLink to='/shop'>Our Shop</UseActiveLink></li>
+        <li><UseActiveLink to='/yummy-shop'>Yummy Shop</UseActiveLink></li>
         {
             loading? <Puff
             height="50"

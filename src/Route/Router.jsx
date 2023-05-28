@@ -6,6 +6,7 @@ import Signin from "../Pages/Signin/Signin";
 import Signup from "../Pages/Signup/Signup";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import ContactUs from "../Pages/ContactUs/ContactUs";
+import YummyShop from "../Pages/YummyShop/YummyShop";
 
 export const router = createBrowserRouter([
     {
@@ -31,7 +32,11 @@ export const router = createBrowserRouter([
             {
                 path: 'contact-us',
                 element: <ContactUs></ContactUs>
-            }
+            },
+            {
+                path: 'yummy-shop',
+                element: <YummyShop></YummyShop>
+            },
         ]
     }
 ])
