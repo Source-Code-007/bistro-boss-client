@@ -1,9 +1,9 @@
-import UseMenuContext from "../../../Context/UseMenuContext";
+import UseMenu from "../../../CustomHook/UseMenu";
 import CommonCardLayout from "../../../HelpingCompo/CommonCardLayout";
 import UseSectionTitle from "../../../HelpingCompo/UseSectionTitle";
 
 const ChefRecommended = () => {
-    const [menu] = UseMenuContext()
+    const [menu] = UseMenu()
     const offeredItem = menu.filter(item=> item.category === 'offered')
     return (
         <div className="py-20 my-container"> 

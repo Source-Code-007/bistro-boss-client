@@ -1,9 +1,9 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-const UseMenuContext = () => {
+const UseMenu = () => {
     const [menu, setMenu] = useState([])
     useEffect(()=>{
-        fetch('/menu.json')
+        fetch('http://localhost:2500/menu-collection')
         .then(res=> res.json())
         .then(data=> setMenu(data))
         .catch(e=> console.log(e.message))
@@ -11,4 +11,4 @@ const UseMenuContext = () => {
     return [menu]
 };
 
-export default UseMenuContext;
+export default UseMenu;

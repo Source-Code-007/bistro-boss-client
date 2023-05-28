@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import UseMenuContext from "../../../Context/UseMenuContext";
 import UseSectionTitle from "../../../HelpingCompo/UseSectionTitle";
 import CommonItem from "../../../HelpingCompo/CommonItem";
+import UseMenu from "../../../CustomHook/UseMenu";
 
 const PopularMenu = () => {
-    const [menu] = UseMenuContext()
+    const [menu] = UseMenu()
 
     const [itemsPerPage, setItemsPerPage] = useState(6)
     const [currentPage, setCurrentPage] = useState(0)

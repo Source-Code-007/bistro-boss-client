@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { authContextData } from '../Context/AuthContext';
 import { Oval } from 'react-loader-spinner';
 import { Navigate, useLocation } from 'react-router-dom';
@@ -8,7 +8,7 @@ const PrivateRoute = ({children}) => {
     const location = useLocation()
 
     if(loading){
-        return <div className='min-h-[80vh] flex justify-center items-center'><Oval
+        return <div className='min-h-screen flex justify-center items-center'><Oval
         height={80}
         width={80}
         color="#4fa94d"

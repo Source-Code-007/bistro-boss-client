@@ -1,10 +1,10 @@
-import UseMenuContext from '../../Context/UseMenuContext';
+import UseMenu from '../../CustomHook/UseMenu';
 import CommonItemLayout from '../../HelpingCompo/CommonItemLayout';
 import CommonParallex from '../../HelpingCompo/CommonParallex';
 import UseSectionTitle from '../../HelpingCompo/UseSectionTitle';
 import ourMenuBg from '../../assets/home/banner.jpg'
 const OurMenu = () => {
-    const [menu] = UseMenuContext()
+    const [menu] = UseMenu()
     const offeredMenu = menu.filter(item => item.category === 'offered')
     const dessert = menu.filter(item => item.category === 'dessert')
     const pizza = menu.filter(item => item.category === 'pizza')
