@@ -4,16 +4,16 @@ import logo from '../../assets/logo.png'
 import { useContext } from "react";
 import { authContextData } from "../../Context/AuthContext";
 import { Puff } from "react-loader-spinner";
-import CartContext from "../../Context/CartContext";
 import { FaCartArrowDown } from "react-icons/fa";
+import UseCartItem from "../../CustomHook/UseCartItem";
 
 const Nav = () => {
     const { user, setUser, loading, signoutFunc } = useContext(authContextData)
-    const {data} = CartContext()
+    const { isLoading, cartItems } = UseCartItem()
 
     // handle signout func
-    const handleSignOut = ()=>{
-        signoutFunc().then(setUser(null)).catch(e=> console.log(e.message))
+    const handleSignOut = () => {
+        signoutFunc().then(setUser(null)).catch(e => console.log(e.message))
     }
 
 
@@ -23,18 +23,21 @@ const Nav = () => {
         <li><UseActiveLink to='/dashboard'>Dashboard</UseActiveLink></li>
         <li><UseActiveLink to='/our-menu'>Our Menu</UseActiveLink></li>
         <li><UseActiveLink to='/yummy-shop'>Yummy Shop</UseActiveLink></li>
-        <li><UseActiveLink to='/user-dashboard-my-cart'> <FaCartArrowDown className="font-bold text-4xl text-green-500"></FaCartArrowDown> <span className="badge text-red-500 absolute bottom-0 right-0">{data?.length || 0}</span> </UseActiveLink></li>
         {
-            loading? <Puff
-            height="50"
-            width="50"
-            radius={1}
-            color="#4fa94d"
-            ariaLabel="puff-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          />: user ? <><img className="w-14 h-14 !rounded-full border border-orange-500 mr-2 mb-2" src={user.photoURL} alt="" /><li className="flex items-center"><button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button></li></> :
+            loading ? <Puff
+                height="50"
+                width="50"
+                radius={1}
+                color="#4fa94d"
+                ariaLabel="puff-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+            /> : user ?
+                <>  <li><UseActiveLink to='/user-dashboard-my-cart'> <FaCartArrowDown className="font-bold text-4xl text-green-500"></FaCartArrowDown> <span className="badge text-red-500 absolute bottom-0 right-0">{isLoading ? '' : cartItems.length ? cartItems.length : 0}</span> </UseActiveLink></li>
+                    <img className="w-14 h-14 !rounded-full border border-orange-500 mr-2 mb-2" src={user.photoURL} alt="" />
+                    <li className="flex items-center"><button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button></li></>
+                :
                 <li className="flex items-stretch"><UseActiveLink to='/signin'><button className="btn btn-error">Signin</button></UseActiveLink></li>
         }
     </>
