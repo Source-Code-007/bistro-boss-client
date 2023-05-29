@@ -4,9 +4,12 @@ import logo from '../../assets/logo.png'
 import { useContext } from "react";
 import { authContextData } from "../../Context/AuthContext";
 import { Puff } from "react-loader-spinner";
+import CartContext from "../../Context/CartContext";
+import { FaCartArrowDown } from "react-icons/fa";
 
 const Nav = () => {
     const { user, setUser, loading, signoutFunc } = useContext(authContextData)
+    const {data} = CartContext()
 
     // handle signout func
     const handleSignOut = ()=>{
@@ -20,6 +23,7 @@ const Nav = () => {
         <li><UseActiveLink to='/dashboard'>Dashboard</UseActiveLink></li>
         <li><UseActiveLink to='/our-menu'>Our Menu</UseActiveLink></li>
         <li><UseActiveLink to='/yummy-shop'>Yummy Shop</UseActiveLink></li>
+        <li><UseActiveLink to='/user-dashboard-cart'> <FaCartArrowDown className="font-bold text-4xl text-green-500"></FaCartArrowDown> <span className="badge text-red-500 absolute bottom-0 right-0">{data?.length || 0}</span> </UseActiveLink></li>
         {
             loading? <Puff
             height="50"
