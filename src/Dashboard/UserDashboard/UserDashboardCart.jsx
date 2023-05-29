@@ -1,8 +1,8 @@
+import MyCart from "../../Pages/MyCart/MyCart";
+
 const UserDashboardCart = () => {
     return (
-        <div>
-            This is user dashboard cart!
-        </div>
+            <MyCart></MyCart>
     );
 };
 

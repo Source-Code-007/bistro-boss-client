@@ -1,16 +1,15 @@
 import { Link, Outlet } from 'react-router-dom';
 import UseActiveLink from '../HelpingCompo/UseActiveLink';
 import logo from '../../src/assets/logo.png'
-import { FaAccessibleIcon, FaAdjust, FaCartArrowDown, FaDollarSign, FaHome, FaOutdent } from 'react-icons/fa';
+import { FaAccessibleIcon, FaAcquisitionsIncorporated, FaAddressBook, FaAdjust, FaCartArrowDown, FaCartPlus, FaDollarSign, FaHome, FaOutdent } from 'react-icons/fa';
 
 const UserDashboardLayout = () => {
     return (
         <>
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col items-center justify-center">
-                    {/* <!-- Page content here --> */}
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+                <div className="drawer-content">
+                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button m-5 lg:hidden">Open drawer</label>
                     <Outlet></Outlet>
                 </div>
                 <div className="drawer-side bg-green-500">
@@ -24,6 +23,13 @@ const UserDashboardLayout = () => {
                             <li><UseActiveLink to={'/user-dashboard-my-cart'}> <FaCartArrowDown></FaCartArrowDown> My Cart</UseActiveLink></li>
                             <li><UseActiveLink to={'/user-dashboard-add-review'}> <FaAdjust></FaAdjust> Add Review</UseActiveLink></li>
                             <li><UseActiveLink to={'/user-dashboard-my-booking'}> <FaAccessibleIcon></FaAccessibleIcon> My Booking</UseActiveLink></li>
+                            <br />
+                            <hr className='w-full h-px bg-red-500'/>
+                            <br />
+                            <li><UseActiveLink to={'/'}> <FaHome></FaHome> Home</UseActiveLink></li>
+                            <li><UseActiveLink to={'/our-menu'}> <FaAcquisitionsIncorporated></FaAcquisitionsIncorporated> Menu</UseActiveLink></li>
+                            <li><UseActiveLink to={'/yummy-shop'}> <FaCartPlus></FaCartPlus> Shop</UseActiveLink></li>
+                            <li><UseActiveLink to={'/contact'}> <FaAddressBook></FaAddressBook> Contact</UseActiveLink></li>
                         </ul>
                     </div>
 
