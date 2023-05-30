@@ -9,18 +9,40 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UseCartItem from "../../CustomHook/UseCartItem";
 import { Puff } from "react-loader-spinner";
+import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 const YummyShop = () => {
     const { user } = useContext(authContextData)
     const [menu, menuLoading] = UseMenu()
     const { refetch } = UseCartItem()
     const [selectedTab, setSelectedTab] = useState('salad')
+    const navigate = useNavigate()
+    const location = useLocation()
 
     // handle add to cart func
     const handleAddToCartFunc = (item) => {
-        const itemId = item._id
-        delete item._id
-        const newItem = { ...item, email: user.email, itemId }
+
+        //  if user is null then navigate to signin page
+        if (!user) {
+            Swal.fire({
+                title: 'You need to login first!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, login!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/signin', { state: { from: location } })
+                }
+            })
+            return
+        }
+
+        const newItem = {...item, email: user?.email}
+
         const option = {
             method: 'POST',
             headers: {
@@ -28,14 +50,14 @@ const YummyShop = () => {
             },
             body: JSON.stringify(newItem)
         }
-        fetch('http://localhost:2500/cart-item', option)
+        fetch(`http://localhost:2500/cart-item?email=${user?.email}`, option)
             .then(res => res.json())
             .then(data => {
-                if (data.insertedId) {
+                if (data.insertedId || data.modifiedCount) {
                     refetch() // refetch cartItems data
                     toast.success('Item added in cart!', {
                         position: "top-right",
-                        autoClose: 2000,
+                        autoClose: 1000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,

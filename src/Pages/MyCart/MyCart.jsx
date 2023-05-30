@@ -2,30 +2,43 @@ import { FaTrash } from "react-icons/fa";
 import UseCartItem from "../../CustomHook/UseCartItem";
 import { Puff } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
+import Swal from 'sweetalert2'
 
 const MyCart = () => {
     const { cartItems, isLoading, refetch } = UseCartItem()
 
     // handle item delete function
     const handleDeleteCartItemFunc = (id) => {
-        fetch(`http://localhost:2500/cart-item/${id}`, { method: 'DELETE' })
-            .then(res => res.json())
-            .then(data => {
-                if (data.deletedCount > 0) {
-                    refetch()
-                    toast.success('Item deleted successfully!', {
-                        position: "top-right",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
-                }
-            })
-            .catch(e => console.log(e.message))
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:2500/cart-item/${id}`, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        refetch() // refetch cart item data after delete a cart item
+                        toast.success('Item deleted successfully!', {
+                            position: "top-right",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
+                    }
+                })
+                .catch(e => console.log(e.message))
+            }
+          })
     }
 
     return (
