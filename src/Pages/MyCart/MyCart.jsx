@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 
 const MyCart = () => {
     const { cartItems, isLoading, refetch } = UseCartItem()
+    const totalOrder = cartItems?.reduce((total , currVal)=> total + currVal.quantity, 0)
     const totalPrice = cartItems?.reduce((total , currVal)=> total + (currVal.price * currVal.quantity), 0)
 
     // handle item delete function
@@ -27,7 +28,7 @@ const MyCart = () => {
                         refetch() // refetch cart item data after delete a cart item
                         toast.success('Item deleted successfully!', {
                             position: "top-right",
-                            autoClose: 2000,
+                            autoClose: 1000,
                             hideProgressBar: false,
                             closeOnClick: true,
                             pauseOnHover: true,
@@ -60,7 +61,7 @@ const MyCart = () => {
                     </div> :
                     <div className="p-10 bg-slate-50">
                     <div className="flex justify-between font-bold text-2xl my-5">
-                        <h2>Total orders:{cartItems.length}</h2>
+                        <h2>Total orders:{totalOrder}</h2>
                         <h2>Total price: {totalPrice} </h2>
                         <button className="btn btn-error">Pay</button>
                     </div>
