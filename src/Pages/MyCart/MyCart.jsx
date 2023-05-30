@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 
 const MyCart = () => {
     const { cartItems, isLoading, refetch } = UseCartItem()
+    const totalPrice = cartItems?.reduce((total , currVal)=> total + (currVal.price * currVal.quantity), 0)
 
     // handle item delete function
     const handleDeleteCartItemFunc = (id) => {
@@ -42,7 +43,7 @@ const MyCart = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center">
+        <div className="min-h-screen flex items-center bg-slate-200">
             <div className="overflow-x-auto w-5/6 mx-auto py-20">
                 {
                     isLoading ? <div className="flex justify-center">
@@ -57,13 +58,20 @@ const MyCart = () => {
                             visible={true}
                         />
                     </div> :
-                        <table className="table w-full">
+                    <div className="p-10 bg-slate-50">
+                    <div className="flex justify-between font-bold text-2xl my-5">
+                        <h2>Total orders:{cartItems.length}</h2>
+                        <h2>Total price: {totalPrice} </h2>
+                        <button className="btn btn-error">Pay</button>
+                    </div>
+                    <table className="table w-full">
                             {/* head */}
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Image</th>
                                     <th>Name</th>
+                                    <th className="text-center">Quantity</th>
                                     <th>Price</th>
                                     <th>Action</th>
                                 </tr>
@@ -71,13 +79,14 @@ const MyCart = () => {
                             <tbody>
                                 {/* row 1 */}
                                 {cartItems?.map((item, ind) => {
-                                    const { name, _id, image, price } = item
+                                    const { name, _id, image, quantity, price } = item
                                     return <tr key={name + ind + price}>
                                         <td>{ind + 1}</td>
                                         <td>
                                             <img className="rounded-full h-10 w-10" src={image} />
                                         </td>
                                         <td>{name}</td>
+                                        <td className="text-center">{quantity}</td>
                                         <td>{price}</td>
                                         <td><span onClick={() => handleDeleteCartItemFunc(_id)} className="text-red-500 text-xl cursor-pointer"><FaTrash></FaTrash></span></td>
                                     </tr>
@@ -85,6 +94,7 @@ const MyCart = () => {
                             </tbody>
 
                         </table>
+                    </div>
                 }
             </div>
             <ToastContainer /><ToastContainer />
