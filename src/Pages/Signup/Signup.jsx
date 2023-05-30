@@ -18,14 +18,17 @@ const Signup = () => {
         signupFunc(email, password)
             .then(data => {
                 updateProfileUserFunc(name, photo).then(() => {
+                    // after successfully register , user automatically sign out
                     signoutFunc().then(() => {
                         navigate('/signin')
+             
+                        // stored users in database
                         const options = {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({name, email, photo})
+                            body: JSON.stringify({name, email, photo, role: 'users'})
                         }
                         fetch('http://localhost:2500/users', options)
                         .then(res=> res.json())

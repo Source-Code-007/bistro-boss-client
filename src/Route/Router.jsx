@@ -10,6 +10,7 @@ import YummyShop from "../Pages/YummyShop/YummyShop";
 import UserDashboardLayout from "../Layout/UserDashboardLayout";
 import UserDashboardHome from "../Dashboard/UserDashboard/UserDashboardHome";
 import UserDashboardCart from "../Dashboard/UserDashboard/UserDashboardCart";
+import AdminDashboardAllUsers from "../Dashboard/AdminDashboard/AdminDashboardAllUsers";
 
 export const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
             {
                 path: '/user-dashboard-my-cart',
                 element: <UserDashboardCart></UserDashboardCart>
+            },
+            {
+                path: '/admin-dashboard-all-users',
+                element: <AdminDashboardAllUsers></AdminDashboardAllUsers>
             }
         ]
     }

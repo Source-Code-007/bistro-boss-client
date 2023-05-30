@@ -1,5 +1,8 @@
+import { ToastContainer } from "react-toastify";
+import AddToCartBtn from "../Pages/YummyShop/AddToCartBtn";
+
 const CommonCard = ({item}) => {
-    const {name, recipe, image, category, price} = item
+    const {name, recipe, image } = item
     return (
             <div className="card bg-base-100 shadow-xl">
                 <figure>
@@ -9,9 +12,10 @@ const CommonCard = ({item}) => {
                     <h2 className="card-title">{name}</h2>
                     <p>{recipe}</p>
                     <div className="card-actions">
-                        <button className="btn bg-slate-200 border-transparent text-orange-500 !border-b-2 border-b-orange-500">Add to Cart</button>
+                    <AddToCartBtn yummyItem={item}></AddToCartBtn>
                     </div>
                 </div>
+            <ToastContainer /><ToastContainer />
             </div>
     );
 };

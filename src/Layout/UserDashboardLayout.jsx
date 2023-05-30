@@ -2,11 +2,14 @@ import { Link, Outlet } from 'react-router-dom';
 import UseActiveLink from '../HelpingCompo/UseActiveLink';
 import logo from '../../src/assets/logo.png'
 import { FaAccessibleIcon, FaAcquisitionsIncorporated, FaAddressBook, FaAdjust, FaCartArrowDown, FaCartPlus, FaDollarSign, FaEllo, FaHome, FaMagnet, FaOutdent, FaProductHunt, FaUsers } from 'react-icons/fa';
-import { useContext } from 'react';
+import { useContext  } from 'react';
 import { authContextData } from '../Context/AuthContext';
 
 const UserDashboardLayout = () => {
     const { user } = useContext(authContextData)
+
+    const loggedInUser ={name: 'demo', role: 'admin'}
+
     return (
         <>
             <div className="drawer drawer-mobile">
@@ -21,13 +24,13 @@ const UserDashboardLayout = () => {
                         <Link to={'/'}><img src={logo} className='w-auto h-10' alt="" /></Link>
                         <ul className="menu p-4 w-80  space-y-3 text-whitef">
                             {
-                                user.role === 'user' ? <> <li><UseActiveLink to={'/user-dashboard'}> <FaHome></FaHome> User Home</UseActiveLink></li>
+                                  loggedInUser?.role === 'users' ? <> <li><UseActiveLink to={'/user-dashboard'}> <FaHome></FaHome> User Home</UseActiveLink></li>
                                     <li><UseActiveLink to={'/user-dashboard-reservation'}> <FaOutdent></FaOutdent> Reservation</UseActiveLink></li>
                                     <li><UseActiveLink to={'/user-dashboard-payment-history'}> <FaDollarSign></FaDollarSign> Payment History</UseActiveLink></li>
                                     <li><UseActiveLink to={'/user-dashboard-my-cart'}> <FaCartArrowDown></FaCartArrowDown> My Cart</UseActiveLink></li>
                                     <li><UseActiveLink to={'/user-dashboard-add-review'}> <FaAdjust></FaAdjust> Add Review</UseActiveLink></li>
                                     <li><UseActiveLink to={'/user-dashboard-my-booking'}> <FaAccessibleIcon></FaAccessibleIcon> My Booking</UseActiveLink></li></>
-                                    : user.role === 'admin' ? <>
+                                    : loggedInUser?.role === 'admin' ? <>
                                         <li><UseActiveLink to={'/admin-dashboard'}> <FaHome></FaHome> Admin Home</UseActiveLink></li>
                                         <li><UseActiveLink to={'/admin-dashboard-add-items'}> <FaProductHunt></FaProductHunt> Add Items</UseActiveLink></li>
                                         <li><UseActiveLink to={'/admin-dashboard-manage-items'}> <FaMagnet></FaMagnet> Manage Items</UseActiveLink></li>
