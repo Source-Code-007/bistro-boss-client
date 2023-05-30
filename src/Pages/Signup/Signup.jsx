@@ -20,7 +20,6 @@ const Signup = () => {
                 updateProfileUserFunc(name, photo).then(() => {
                     signoutFunc().then(() => {
                         navigate('/signin')
-                        console.log({name, email, photo});
                         const options = {
                             method: 'POST',
                             headers: {
