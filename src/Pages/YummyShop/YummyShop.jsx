@@ -2,73 +2,17 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import CommonParallex from "../../HelpingCompo/CommonParallex";
 import yummyShopBG from '../../assets/shop/banner21.jpg'
 import UseMenu from "../../CustomHook/UseMenu";
-import { useContext, useState } from "react";
-import { FaCartPlus } from "react-icons/fa";
-import { authContextData } from "../../Context/AuthContext";
-import { ToastContainer, toast } from 'react-toastify';
+import { useState } from "react";
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UseCartItem from "../../CustomHook/UseCartItem";
 import { Puff } from "react-loader-spinner";
-import { useLocation, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import AddToCartBtn from "./AddToCartBtn";
 
 
 const YummyShop = () => {
-    const { user } = useContext(authContextData)
     const [menu, menuLoading] = UseMenu()
-    const { refetch } = UseCartItem()
     const [selectedTab, setSelectedTab] = useState('salad')
-    const navigate = useNavigate()
-    const location = useLocation()
 
-    // handle add to cart func
-    const handleAddToCartFunc = (item) => {
-
-        //  if user is null then navigate to signin page
-        if (!user) {
-            Swal.fire({
-                title: 'You need to login first!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, login!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    navigate('/signin', { state: { from: location } })
-                }
-            })
-            return
-        }
-
-        const newItem = {...item, email: user?.email}
-
-        const option = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newItem)
-        }
-        fetch(`http://localhost:2500/cart-item?email=${user?.email}`, option)
-            .then(res => res.json())
-            .then(data => {
-                if (data.insertedId || data.modifiedCount) {
-                    refetch() // refetch cartItems data
-                    toast.success('Item added in cart!', {
-                        position: "top-right",
-                        autoClose: 1000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                    });
-                }
-            })
-            .catch(e => console.log(e.message))
-    }
 
     const menuItems = ['salad', 'pizza', 'soup', 'dessert', 'drinks']
 
@@ -116,7 +60,7 @@ const YummyShop = () => {
                                                         <h2 className="card-title">{name}</h2>
                                                         <p>{recipe}</p>
                                                         <div className="card-actions">
-                                                            <button onClick={() => handleAddToCartFunc(yummyItem)} className="btn btn-error btn-outline gap-2">Add to cart <FaCartPlus></FaCartPlus> </button>
+                                                            <AddToCartBtn yummyItem={yummyItem}></AddToCartBtn>
                                                         </div>
                                                     </div>
                                                 </div>
