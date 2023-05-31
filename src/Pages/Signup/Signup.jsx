@@ -17,31 +17,37 @@ const Signup = () => {
         const { email, password, name, photo } = data
         signupFunc(email, password)
             .then(data => {
+                const currUser = data.user
                 updateProfileUserFunc(name, photo).then(() => {
                     // after successfully register , user automatically sign out
                     signoutFunc().then(() => {
-                        navigate('/signin')
-             
-                        // stored users in database
-                        const options = {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({name, email, photo, role: 'users'})
-                        }
-                        fetch('http://localhost:2500/users', options)
-                        .then(res=> res.json())
-                        .then(data=>{
-                            if(data.insertedId){
-                                console.log('user stored in database');
+                        // navigate('/signin')
+                        emailVerificationFunc(currUser).then(() => {
+                            setLoading(false)
+                            setError('email verification sent. check your email!')
+
+                            // stored users in database
+                            const options = {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ name, email, photo, role: 'users' })
                             }
-                        }).catch(e=> console.log(e.message))      
+                            fetch('http://localhost:2500/users', options)
+                                .then(res => res.json())
+                                .then(data => {
+                                    if (data.insertedId) {
+                                        console.log('user stored in database');
+                                    }
+                                }).catch(e => console.log(e.message))
+
+                        }).catch(e => setError(e.message))
 
                     }).catch(e => console.log(e.message))
+
                 }).catch(e => setError(e.message))
-            })
-            .catch(e => {
+            }).catch(e => {
                 setLoading(false)
                 if (e.code === 'auth/email-already-in-use') {
                     setError("Email already used. Please try with different email.");

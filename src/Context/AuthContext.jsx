@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { app } from '../../firebase.config';
 
 export const authContextData = createContext(null)
@@ -30,6 +30,12 @@ const AuthContext = ({ children }) => {
         })
     }
 
+    // reset password func
+    const passwordResetFunc = (email)=>{
+        setLoading(true)
+        return sendPasswordResetEmail(auth, email)
+    }
+
     // signout func
     const signoutFunc = () => {
         setLoading(true)
@@ -37,8 +43,9 @@ const AuthContext = ({ children }) => {
     }
 
     // email verificaiton func 
-    const emailVerificationFunc = () => {
-        return sendEmailVerification(auth.currentUser)
+    const emailVerificationFunc = (user) => {
+        setLoading(true)
+        return sendEmailVerification(user)
     }
 
 
@@ -64,17 +71,15 @@ const AuthContext = ({ children }) => {
                     .catch(e => console.log(e.message))
             } else {
                 localStorage.removeItem('jwt-token')
-                setUser(currUser)
+                setUser(null)
                 setLoading(false)
             }
         })
-        return () => {
-            unsubscribe()
-        }
+        return unsubscribe()
     }, [])
 
     const authData = {
-        user, setUser, loading, setLoading, signinFunc, signupFunc, signoutFunc, updateProfileUserFunc, emailVerificationFunc
+        user, setUser, loading, setLoading, signinFunc, signupFunc, signoutFunc, updateProfileUserFunc, emailVerificationFunc, passwordResetFunc
     }
     return (
         <authContextData.Provider value={authData}>{children}</authContextData.Provider>
