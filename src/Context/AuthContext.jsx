@@ -46,7 +46,6 @@ const AuthContext = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currUser => {
             if (currUser) {
-
                 // create access token and store it in local storage
                 const options = {
                     method: 'POST',
@@ -64,6 +63,7 @@ const AuthContext = ({ children }) => {
                     })
                     .catch(e => console.log(e.message))
             } else {
+                localStorage.removeItem('jwt-token')
                 setUser(currUser)
                 setLoading(false)
             }
