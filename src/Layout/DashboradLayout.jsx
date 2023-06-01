@@ -35,7 +35,7 @@ const DashboradLayout = () => {
                                 <li><UseActiveLink to={'/user-dashboard-reservation'}> <FaOutdent></FaOutdent> Reservation</UseActiveLink></li>
                                 <li><UseActiveLink to={'/user-dashboard-payment-history'}> <FaDollarSign></FaDollarSign> Payment History</UseActiveLink></li>
                                 <li><UseActiveLink to={'/user-dashboard-my-cart'}> <FaCartArrowDown></FaCartArrowDown> My Cart</UseActiveLink></li>
-                                <li><UseActiveLink to={'/user-dashboard-add-review'}> <FaAdjust></FaAdjust> Add Review</UseActiveLink></li>
+                                <li><UseActiveLink to={'/user-dashboard-give-review'}> <FaAdjust></FaAdjust> Add Review</UseActiveLink></li>
                                 <li><UseActiveLink to={'/user-dashboard-my-booking'}> <FaAccessibleIcon></FaAccessibleIcon> My Booking</UseActiveLink></li></>
                                 : <>
                                     <li><UseActiveLink to={'/admin-dashboard'}> <FaHome></FaHome> Admin Home</UseActiveLink></li>

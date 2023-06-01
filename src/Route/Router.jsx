@@ -11,6 +11,7 @@ import UserDashboardHome from "../Dashboard/UserDashboard/UserDashboardHome";
 import UserDashboardCart from "../Dashboard/UserDashboard/UserDashboardCart";
 import AdminDashboardAllUsers from "../Dashboard/AdminDashboard/AdminDashboardAllUsers";
 import DashboradLayout from "../Layout/DashboradLayout";
+import GiveReview from "../Dashboard/UserDashboard/GiveReview";
 
 export const router = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
             {
                 path: '/user-dashboard-my-cart',
                 element: <UserDashboardCart></UserDashboardCart>
+            },
+            {
+                path: '/user-dashboard-give-review',
+                element: <GiveReview></GiveReview>
             },
             {
                 path: '/admin-dashboard-all-users',
