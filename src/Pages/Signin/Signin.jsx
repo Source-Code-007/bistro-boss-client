@@ -25,8 +25,8 @@ const Signin = () => {
                 // if not verified email then signout automatically otherwise not
                 setLoading(true)
                 if (currUser.emailVerified) {
-                    setUser(currUser)
                     setLoading(false)
+                    setUser(currUser)
                     setSuccess('user signin successfully')
                     navigate(from)
                     return

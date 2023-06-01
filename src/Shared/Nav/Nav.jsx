@@ -8,14 +8,17 @@ import { FaCartArrowDown } from "react-icons/fa";
 import UseCartItem from "../../CustomHook/UseCartItem";
 
 const Nav = () => {
-    const { user, setUser, loading, signoutFunc } = useContext(authContextData)
+    const { user, setUser, setLoading, loading, signoutFunc } = useContext(authContextData)
 
     const { isLoading, cartItems } = UseCartItem()
     const totalOrder = cartItems?.reduce((total , currVal)=> total + currVal.quantity, 0)
 
     // handle signout func
     const handleSignOut = () => {
-        signoutFunc().then(setUser(null)).catch(e => console.log(e.message))
+        signoutFunc().then(()=>{
+            setLoading(false)
+            setUser(null)
+        }).catch(e => console.log(e.message))
     }
 
 

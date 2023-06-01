@@ -15,7 +15,6 @@ const AdminDashboardAllUsers = () => {
             ),
     })
 
-
     // handle delete user func
     const handleDeleteUserFunc = (id) => {
 

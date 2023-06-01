@@ -7,10 +7,10 @@ import Signup from "../Pages/Signup/Signup";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import YummyShop from "../Pages/YummyShop/YummyShop";
-import UserDashboardLayout from "../Layout/UserDashboardLayout";
 import UserDashboardHome from "../Dashboard/UserDashboard/UserDashboardHome";
 import UserDashboardCart from "../Dashboard/UserDashboard/UserDashboardCart";
 import AdminDashboardAllUsers from "../Dashboard/AdminDashboard/AdminDashboardAllUsers";
+import DashboradLayout from "../Layout/DashboradLayout";
 
 export const router = createBrowserRouter([
     {
@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
 
     {
         path: '/',
-        element: <UserDashboardLayout></UserDashboardLayout>,
+        element: <DashboradLayout></DashboradLayout>,
         children: [
             {
                 path: '/user-dashboard',
