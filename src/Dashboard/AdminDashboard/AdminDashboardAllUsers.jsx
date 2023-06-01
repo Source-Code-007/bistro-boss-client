@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import UseSectionTitle from "../../HelpingCompo/UseSectionTitle";
 import { Puff } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";

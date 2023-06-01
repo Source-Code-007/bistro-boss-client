@@ -13,12 +13,12 @@ const GiveReview = () => {
 
                     {/* rating title */}
                     <div className='text-center p-8 font-semibold text-4xl space-y-3'>
-                        <div class="rating">
-                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
-                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-                            <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+                        <div className="rating">
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
                         </div>
                         <h2>Rate us</h2>
                     </div>

@@ -12,6 +12,7 @@ import UserDashboardCart from "../Dashboard/UserDashboard/UserDashboardCart";
 import AdminDashboardAllUsers from "../Dashboard/AdminDashboard/AdminDashboardAllUsers";
 import DashboradLayout from "../Layout/DashboradLayout";
 import GiveReview from "../Dashboard/UserDashboard/GiveReview";
+import AddAnItem from "../Dashboard/AdminDashboard/AddAnItem";
 
 export const router = createBrowserRouter([
     {
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
             {
                 path: '/admin-dashboard-all-users',
                 element: <AdminDashboardAllUsers></AdminDashboardAllUsers>
+            },
+            {
+                path: '/admin-dashboard-add-an-item',
+                element: <AddAnItem></AddAnItem>
             }
         ]
     }
