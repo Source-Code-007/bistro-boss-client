@@ -2,11 +2,28 @@ import { useForm } from 'react-hook-form';
 import UseSectionTitle from '../../HelpingCompo/UseSectionTitle';
 
 const AddAnItem = () => {
+    const imgHostingAPIsecretKey = import.meta.env.VITE_Img_hosting_secret_API_key
+    const url = `https://api.imgbb.com/1/upload?key=${imgHostingAPIsecretKey}`
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
-        const newRecipe =  {...data, recipeImg: data.recipeImg[0]}
-        
+        const formData = new FormData()
+        formData.append('image', data.recipeImg[0])
+        // img host in imgBB
+        const options = {
+            method: "POST",
+            body: formData
+        }
+        fetch(url, options)
+            .then(res => res.json())
+            .then(imgbbRes => {
+                if (imgbbRes.success) {
+                    const imgUrl = imgbbRes.data.display_url
+                    const newRecipe = { ...data, recipeImg: imgUrl }
+                    console.log(newRecipe);
+                }
+            })
+            .catch(e => console.log(e.message))
     };
 
     return (
@@ -28,9 +45,9 @@ const AddAnItem = () => {
                         </div>
                         <div className='flex'>
                             <div className="form-control flex-1">
-                            <label className="label">
-                                <span className="label-text">Category</span>
-                            </label>
+                                <label className="label">
+                                    <span className="label-text">Category</span>
+                                </label>
                                 <select className="select select-success w-full" {...register("category")}>
                                     <option disabled value='demo'>Pick your product</option>
                                     <option value='Soup'>Soup</option>
@@ -47,13 +64,13 @@ const AddAnItem = () => {
                             </div>
                         </div>
                         <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Recipe Details</span>
-                                </label>
-                                <input type="text" placeholder="Price" className="input input-bordered" {...register("recipeDetails")} />
-                            </div>
-                        
-                        <input type="file" className="file-input file-input-bordered file-input-success w-full max-w-xs" {...register("recipeImg")}/>
+                            <label className="label">
+                                <span className="label-text">Recipe Details</span>
+                            </label>
+                            <input type="text" placeholder="Price" className="input input-bordered" {...register("recipeDetails")} />
+                        </div>
+
+                        <input type="file" className="file-input file-input-bordered file-input-success w-full max-w-xs" {...register("recipeImg")} />
                         <div className="form-control mt-6">
                             <button type='submit' className="btn btn-primary">Add Item</button>
                         </div>
