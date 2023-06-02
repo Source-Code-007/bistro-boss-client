@@ -5,16 +5,20 @@ import { ToastContainer, toast } from "react-toastify";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
+import UseAxiosSecure from "../../CustomHook/UseAxiosSecure";
 
 const AdminDashboardAllUsers = () => {
+    const [axiosSecure] = UseAxiosSecure()
 
     const { isLoading, error, data: users, refetch } = useQuery({
-        queryKey: ['repoData'],
-        queryFn: () =>
-            fetch('http://localhost:2500/users', { method: 'GET', headers: { Authorization: localStorage.getItem('jwt-token') } }).then(
-                (res) => res.json()
-            ).catch(e=> console.log(e.message))
+        queryKey: ['users'],
+        queryFn: async () =>
+          await axiosSecure.get('/users').then(res=> res.data).catch(e=> console.log(e.message))
     })
+
+    // fetch('http://localhost:2500/users', { method: 'GET', headers: { Authorization: localStorage.getItem('jwt-token') } }).then(
+    //     (res) => res.json()
+    // ).catch(e=> console.log(e.message))
 
     // handle delete user func
     const handleDeleteUserFunc = (id) => {
