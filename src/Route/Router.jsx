@@ -13,6 +13,7 @@ import AdminDashboardAllUsers from "../Dashboard/AdminDashboard/AdminDashboardAl
 import DashboradLayout from "../Layout/DashboradLayout";
 import GiveReview from "../Dashboard/UserDashboard/GiveReview";
 import AddAnItem from "../Dashboard/AdminDashboard/AddAnItem";
+import AdminRoute from "../PrivateRoute/AdminRoute";
 
 export const router = createBrowserRouter([
     {
@@ -64,7 +65,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/admin-dashboard-all-users',
-                element: <AdminDashboardAllUsers></AdminDashboardAllUsers>
+                element: <AdminRoute><AdminDashboardAllUsers></AdminDashboardAllUsers></AdminRoute>
             },
             {
                 path: '/admin-dashboard-add-an-item',

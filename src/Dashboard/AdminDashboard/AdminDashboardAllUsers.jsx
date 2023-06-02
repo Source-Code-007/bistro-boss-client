@@ -16,10 +16,6 @@ const AdminDashboardAllUsers = () => {
           await axiosSecure.get('/users').then(res=> res.data).catch(e=> console.log(e.message))
     })
 
-    // fetch('http://localhost:2500/users', { method: 'GET', headers: { Authorization: localStorage.getItem('jwt-token') } }).then(
-    //     (res) => res.json()
-    // ).catch(e=> console.log(e.message))
-
     // handle delete user func
     const handleDeleteUserFunc = (id) => {
 
