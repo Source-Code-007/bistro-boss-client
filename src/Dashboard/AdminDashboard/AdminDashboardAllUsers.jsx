@@ -12,8 +12,8 @@ const AdminDashboardAllUsers = () => {
         queryKey: ['repoData'],
         queryFn: () =>
             fetch('http://localhost:2500/users', { method: 'GET', headers: { Authorization: localStorage.getItem('jwt-token') } }).then(
-                (res) => res.json(),
-            ),
+                (res) => res.json()
+            ).catch(e=> console.log(e.message))
     })
 
     // handle delete user func
@@ -92,7 +92,7 @@ const AdminDashboardAllUsers = () => {
                                 </thead>
                                 <tbody>
                                     {/* row 1 */}
-                                    {users?.map((user, ind) => {
+                                    {users.length&& users.map((user, ind) => {
                                         const { _id, name, email, photo, role } = user
                                         return <tr key={_id}>
                                             <td>{ind + 1}</td>

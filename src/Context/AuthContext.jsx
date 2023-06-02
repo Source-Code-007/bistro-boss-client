@@ -59,7 +59,7 @@ const AuthContext = ({ children }) => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ email: currUser.email, name: currUser.displayName })
+                    body: JSON.stringify({ email: currUser.email})
                 }
                 fetch('http://localhost:2500/jwt', options)
                     .then(res => res.json())

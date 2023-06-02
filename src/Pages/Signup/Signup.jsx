@@ -32,7 +32,7 @@ const Signup = () => {
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
-                                body: JSON.stringify({ name, email, photo, role: 'users' })
+                                body: JSON.stringify({ name, email, photo, role: 'user' })
                             }
                             fetch('http://localhost:2500/users', options)
                                 .then(res => res.json())
