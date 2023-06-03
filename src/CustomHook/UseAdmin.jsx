@@ -13,10 +13,11 @@ const UseAdmin = () => {
                 setIsAdmin(res.data.isAdmin)
                 setIsAdminLoading(false)
             })
-        } else{
-            setIsAdmin(false)
-            setIsAdminLoading(false)
-        }
+        } 
+        // else{
+        //     setIsAdmin(false)
+        //     setIsAdminLoading(false)
+        // }
     }, [user?.email])
     return [isAdmin,  isAdminLoading]
 };

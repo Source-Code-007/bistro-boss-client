@@ -14,6 +14,7 @@ import DashboradLayout from "../Layout/DashboradLayout";
 import GiveReview from "../Dashboard/UserDashboard/GiveReview";
 import AddAnItem from "../Dashboard/AdminDashboard/AddAnItem";
 import AdminRoute from "../PrivateRoute/AdminRoute";
+import AdminDashBoardHome from "../Dashboard/AdminDashboard/AdminDashBoardHome";
 
 export const router = createBrowserRouter([
     {
@@ -53,15 +54,19 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/user-dashboard',
-                element: <UserDashboardHome></UserDashboardHome>
+                element: <PrivateRoute><UserDashboardHome></UserDashboardHome></PrivateRoute>
             },
             {
                 path: '/user-dashboard-my-cart',
-                element: <UserDashboardCart></UserDashboardCart>
+                element: <PrivateRoute><UserDashboardCart></UserDashboardCart></PrivateRoute>
             },
             {
                 path: '/user-dashboard-give-review',
-                element: <GiveReview></GiveReview>
+                element: <PrivateRoute><GiveReview></GiveReview></PrivateRoute>
+            },
+            {
+                path: '/admin-dashboard',
+                element: <AdminRoute><AdminDashBoardHome></AdminDashBoardHome></AdminRoute>
             },
             {
                 path: '/admin-dashboard-all-users',
@@ -69,7 +74,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/admin-dashboard-add-an-item',
-                element: <AddAnItem></AddAnItem>
+                element: <AdminRoute><AddAnItem></AddAnItem></AdminRoute>
             }
         ]
     }

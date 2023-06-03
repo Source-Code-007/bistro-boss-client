@@ -6,16 +6,17 @@ import { authContextData } from "../../Context/AuthContext";
 import { Puff } from "react-loader-spinner";
 import { FaCartArrowDown } from "react-icons/fa";
 import UseCartItem from "../../CustomHook/UseCartItem";
+import UseAdmin from "../../CustomHook/UseAdmin";
 
 const Nav = () => {
     const { user, setUser, setLoading, loading, signoutFunc } = useContext(authContextData)
-
-    const { isLoading, cartItems } = UseCartItem()
-    const totalOrder = cartItems?.reduce((total , currVal)=> total + currVal.quantity, 0)
+    const [isAdmin, isAdminLoading] = UseAdmin()
+    const { isLoading: isCartLoading, cartItems } = UseCartItem()
+    const totalOrder = cartItems?.reduce((total, currVal) => total + currVal.quantity, 0)
 
     // handle signout func
     const handleSignOut = () => {
-        signoutFunc().then(()=>{
+        signoutFunc().then(() => {
             setLoading(false)
             setUser(null)
         }).catch(e => console.log(e.message))
@@ -25,11 +26,11 @@ const Nav = () => {
     const menuItem = <>
         <li><UseActiveLink to='/'>Home</UseActiveLink></li>
         <li><UseActiveLink to='/contact-us'>Contact Us</UseActiveLink></li>
-        <li><UseActiveLink to='/dashboard'>Dashboard</UseActiveLink></li>
+        <li><UseActiveLink to={`${isAdmin ? '/admin-dashboard' : '/user-dashboard'}`}>Dashboard</UseActiveLink></li>
         <li><UseActiveLink to='/our-menu'>Our Menu</UseActiveLink></li>
         <li><UseActiveLink to='/yummy-shop'>Yummy Shop</UseActiveLink></li>
         {
-            loading ? <Puff
+            (loading || isAdminLoading || isCartLoading) ? <Puff
                 height="50"
                 width="50"
                 radius={1}
@@ -38,12 +39,15 @@ const Nav = () => {
                 wrapperStyle={{}}
                 wrapperClass=""
                 visible={true}
-            /> : user ?
-                <>  <li><UseActiveLink to='/user-dashboard-my-cart'> <FaCartArrowDown className="font-bold text-4xl text-green-500"></FaCartArrowDown> <span className="badge text-red-500 absolute bottom-0 right-0">{isLoading ? '' : cartItems.length ? totalOrder : 0}</span> </UseActiveLink></li>
-                    <img className="w-14 h-14 !rounded-full border border-orange-500 mr-2 mb-2" src={user.photoURL} alt="" />
-                    <li className="flex items-center"><button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button></li></>
-                :
-                <li className="flex items-stretch"><UseActiveLink to='/signin'><button className="btn btn-error">Signin</button></UseActiveLink></li>
+            /> :
+                isAdmin ? <><img className="w-14 h-14 !rounded-full border border-orange-500 mr-2 mb-2" src={user.photoURL} alt="" />
+                    <li className="flex items-center"><button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button></li></> : user ?
+                        <>  <li><UseActiveLink to='/user-dashboard-my-cart'> <FaCartArrowDown className="font-bold text-4xl text-green-500"></FaCartArrowDown> {
+                            <span className="badge text-red-500 absolute bottom-0 right-0">{cartItems.length ? totalOrder : 0}</span>
+                        } </UseActiveLink></li>
+                            <img className="w-14 h-14 !rounded-full border border-orange-500 mr-2 mb-2" src={user.photoURL} alt="" />
+                            <li className="flex items-center"><button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button></li></> :
+                        <li className="flex items-stretch"><UseActiveLink to='/signin'><button className="btn btn-error">Signin</button></UseActiveLink></li>
         }
     </>
     return (
