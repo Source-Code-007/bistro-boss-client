@@ -40,14 +40,11 @@ const Nav = () => {
                 wrapperClass=""
                 visible={true}
             /> :
-                isAdmin ? <><img className="w-14 h-14 !rounded-full border border-orange-500 mr-2 mb-2" src={user.photoURL} alt="" />
-                    <li className="flex items-center"><button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button></li></> : user ?
-                        <>  <li><UseActiveLink to='/user-dashboard-my-cart'> <FaCartArrowDown className="font-bold text-4xl text-green-500"></FaCartArrowDown> {
-                            <span className="badge text-red-500 absolute bottom-0 right-0">{cartItems.length ? totalOrder : 0}</span>
-                        } </UseActiveLink></li>
-                            <img className="w-14 h-14 !rounded-full border border-orange-500 mr-2 mb-2" src={user.photoURL} alt="" />
-                            <li className="flex items-center"><button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button></li></> :
-                        <li className="flex items-stretch"><UseActiveLink to='/signin'><button className="btn btn-error">Signin</button></UseActiveLink></li>
+                user ?
+                    <> {!isAdmin && <li><UseActiveLink to='/user-dashboard-my-cart'> <FaCartArrowDown className="font-bold text-4xl text-green-500"></FaCartArrowDown> <span className="badge text-red-500 absolute bottom-0 right-0">{cartItems.length ? totalOrder : 0}</span></UseActiveLink></li>}
+                        <img className="w-14 h-14 !rounded-full border border-orange-500 mr-2 mb-2" src={user.photoURL} alt="" />
+                        <li className="flex items-center"><button onClick={handleSignOut} className="btn btn-outline btn-error">Signout</button></li></> :
+                    <li className="flex items-stretch"><UseActiveLink to='/signin'><button className="btn btn-error">Signin</button></UseActiveLink></li>
         }
     </>
     return (

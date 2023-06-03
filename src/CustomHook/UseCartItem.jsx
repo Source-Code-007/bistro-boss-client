@@ -3,7 +3,7 @@ import { authContextData } from '../Context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 
 const UseCartItem = () => {
-    const { user} = useContext(authContextData)
+    const { user, loading } = useContext(authContextData)
 
     const { isLoading, error, data, refetch } = useQuery({
         queryKey: ['repoData'],
@@ -11,7 +11,7 @@ const UseCartItem = () => {
           fetch(`http://localhost:2500/cart-item?email=${user?.email}`).then(
             (res) => res.json(),
           ),
-          enabled: !!user
+          enabled: !loading
       })
 return   {cartItems: data, error, isLoading, refetch}
 };
