@@ -3,6 +3,7 @@ import UseCartItem from "../../CustomHook/UseCartItem";
 import { Puff } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 import Swal from 'sweetalert2'
+import { Link } from "react-router-dom";
 
 const MyCart = () => {
     const { cartItems, isLoading, refetch } = UseCartItem()
@@ -63,7 +64,7 @@ const MyCart = () => {
                     <div className="flex justify-between font-bold text-2xl my-5">
                         <h2>Total orders:{totalOrder}</h2>
                         <h2>Total price: {totalPrice} </h2>
-                        <button className="btn btn-error">Pay</button>
+                        <Link to={'/user-dashboard-payment'}><button className="btn btn-error">Pay</button></Link>
                     </div>
                     <table className="table w-full">
                             {/* head */}

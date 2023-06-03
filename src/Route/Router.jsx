@@ -15,6 +15,7 @@ import GiveReview from "../Dashboard/UserDashboard/GiveReview";
 import AddAnItem from "../Dashboard/AdminDashboard/AddAnItem";
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import AdminDashBoardHome from "../Dashboard/AdminDashboard/AdminDashBoardHome";
+import UserDashboardPayment from "../Dashboard/UserDashboard/Payment/UserDashboardPayment";
 
 export const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
             {
                 path: '/user-dashboard-my-cart',
                 element: <PrivateRoute><UserDashboardCart></UserDashboardCart></PrivateRoute>
+            },
+            {
+                path: '/user-dashboard-payment',
+                element: <PrivateRoute><UserDashboardPayment></UserDashboardPayment></PrivateRoute>
             },
             {
                 path: '/user-dashboard-give-review',
