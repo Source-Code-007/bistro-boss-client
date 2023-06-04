@@ -6,20 +6,16 @@ import UseAxiosSecure from "../../../CustomHook/UseAxiosSecure";
 const CheckoutForm = ({ price }) => {
     const stripe = useStripe();
     const elements = useElements();
-    const [clientSecretP, setClientSecretP] = useState('')
+    const [clientSecret, setClientSecret] = useState('')
     const [axiosSecure] = UseAxiosSecure()
     const [error, setError] = useState('')
 
     useEffect(() => {
-        // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:2500/create-payment-intent", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", Authorization: localStorage.getItem('jwt-token') },
-            body: JSON.stringify({ price }),
-        })
-            .then((res) => res.json())
-            .then((data) => {console.log(data); setClientSecretP(data.clientSecret)});
-    }, [price]);
+        axiosSecure.post('/create-payment-intent', { price }).then((data) => {
+            setClientSecret(data.data.clientSecret)
+        });
+
+    }, [price, axiosSecure]);
 
     // handle payment submit func
     const handlePaymentSubmit = async (e) => {
@@ -38,19 +34,30 @@ const CheckoutForm = ({ price }) => {
         }
 
 
+        const {error} = await stripe.confirmPayment({
+            //`Elements` instance that was used to create the Payment Element
+            elements,
+            clientSecret,
+            confirmParams: {
+                return_url: 'http://localhost:5173/user-dashboard',
+              },
+          });
 
-        //   const {client_secret: clientSecret} = await res.json();
+          if (error) {
+            console.log('error');
+            // This point will only be reached if there is an immediate error when
+            // confirming the payment. Show error to your customer (for example, payment
+            // details incomplete)
+            setError(error.message);
+          } else {
+            console.log('error hy nai');
 
-        // const res = await axiosSecure.post('/create-payment-intent',{price}).then(res=> console.log(res.data))
-        // const  {clientSecret} = await res.json();
+            // Your customer will be redirected to your `return_url`. For some payment
+            // methods like iDEAL, your customer will be redirected to an intermediate
+            // site first to authorize the payment, then redirected to the `return_url`.
+            setError('')
+          }
 
-        // console.log(clientSecret);
-
-        // const {error} = stripe.confirmPayment({
-
-        // })
-
-        setError('')
 
 
     }

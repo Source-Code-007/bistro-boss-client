@@ -36,9 +36,7 @@ const UserDashboardPayment = () => {
         amount: price * 100,
         currency: 'usd',
         // Fully customizable with appearance API.
-        appearance: {
             theme: 'stripe',
-        },
     };
 
     return (
