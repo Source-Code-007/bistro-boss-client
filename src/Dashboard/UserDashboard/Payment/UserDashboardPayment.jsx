@@ -28,7 +28,7 @@ const UserDashboardPayment = () => {
 
 
     const totalPrice = cartItems?.reduce((acc, item) => acc + item.price * item.quantity, 0)
-    const price = parseFloat(totalPrice.toFixed(2))
+    const price = parseFloat(totalPrice)*100
 
 
     // const options = {
@@ -41,10 +41,10 @@ const UserDashboardPayment = () => {
 
     return (
         <div className="min-h-screen bg-slate-100 flex justify-center items-center">
-            <div className="bg-slate-50 shadow p-20 w-3/6">
-                <h2 className="py-8 font-bold text-3xl text-center">Payment</h2>
+            <div className="bg-slate-50 shadow p-14 w-3/6">
+                <h2 className="py-8 font-bold text-xl text-gray-400 text-center">You have to pay <span>${price}</span></h2>
                 <Elements stripe={stripePromise}>
-                    <CheckoutForm price={price}></CheckoutForm>
+                    <CheckoutForm price={price} cartItems={cartItems}></CheckoutForm>
                 </Elements>
             </div>
         </div>

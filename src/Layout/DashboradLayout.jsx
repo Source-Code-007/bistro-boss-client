@@ -32,7 +32,7 @@ const DashboradLayout = () => {
                                     visible={true}
                                 />
                             </div> : !isAdmin ? <> <li><UseActiveLink to={'/user-dashboard'}> <FaHome></FaHome> User Home</UseActiveLink></li>
-                                <li><UseActiveLink to={'/user-dashboard-reservation'}> <FaOutdent></FaOutdent> Reservation</UseActiveLink></li>
+                                <li><UseActiveLink to={'/user-dashboard-payment'}> <FaOutdent></FaOutdent> Reservation</UseActiveLink></li>
                                 <li><UseActiveLink to={'/user-dashboard-payment-history'}> <FaDollarSign></FaDollarSign> Payment History</UseActiveLink></li>
                                 <li><UseActiveLink to={'/user-dashboard-my-cart'}> <FaCartArrowDown></FaCartArrowDown> My Cart</UseActiveLink></li>
                                 <li><UseActiveLink to={'/user-dashboard-give-review'}> <FaAdjust></FaAdjust> Add Review</UseActiveLink></li>

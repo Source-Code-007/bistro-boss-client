@@ -1,10 +1,14 @@
 import { CardElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UseAxiosSecure from "../../../CustomHook/UseAxiosSecure";
+import { authContextData } from "../../../Context/AuthContext";
 
-const CheckoutForm = ({ price }) => {
+
+const CheckoutForm = ({ price, cartItems }) => {
   const stripe = useStripe();
   const elements = useElements();
+
+  const { user } = useContext(authContextData)
   const [clientSecret, setClientSecret] = useState('')
   const [axiosSecure] = UseAxiosSecure()
   const [error, setError] = useState('')
@@ -14,6 +18,8 @@ const CheckoutForm = ({ price }) => {
       setClientSecret(data.data.clientSecret)
     });
   }, [price, axiosSecure]);
+
+
 
   // handle payment submit func
   const handlePaymentSubmit = async (e) => {
@@ -28,41 +34,42 @@ const CheckoutForm = ({ price }) => {
       return
     }
 
+    // create payment
     const { error } = await stripe.createPaymentMethod({
       type: 'card',
       card
     })
 
     if (error) {
-      console.log('error', error)
       setError(error.message);
     }
-    else {
-      setError('');
-    }
 
-
-
+    // confirm payment 
     const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
       clientSecret,
       {
         payment_method: {
           card: card,
-          // billing_details: {
-          //   email: user?.email || 'unknown',
-          //   name: user?.displayName || 'anonymous'
-          // },
+          billing_details: {
+            email: user?.email || 'unknown',
+            name: user?.displayName || 'anonymous'
+          },
         },
       },
     );
 
     if (confirmError) {
-      console.log(confirmError);
+      setError(confirmError.message);
+      return
     }
+    setError('')
 
-    console.log('payment intent', paymentIntent)
-
-
+    const menuId = cartItems.map(item=> item.itemId)
+    const productId = cartItems.map(item=> item._id)
+    const { id, amount } = paymentIntent
+    const paymentInfo = { trxId: id, productId, menuId, amount, date: new Date() }
+    console.log(paymentInfo);
+    // axiosSecure.post(`/payment-info`, { paymentInfo })
 
   };
 
@@ -72,7 +79,7 @@ const CheckoutForm = ({ price }) => {
       {/* <PaymentElement ></PaymentElement> */}
       <CardElement ></CardElement>
       {error && <p className="text-red-500">{error}</p>}
-      <button type="submit" disabled={!stripe || !elements} className="btn btn-error my-3">Payment</button>
+      <button type="submit" disabled={!stripe || !elements} className="btn btn-error btn-sm my-3 text-white">Pay</button>
     </form>
   );
 };

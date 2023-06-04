@@ -52,7 +52,10 @@ const AuthContext = ({ children }) => {
     // user state monitoring
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currUser => {
+            console.log(currUser);
+
             if (currUser) {
+
                 // create access token and store it in local storage
                 const options = {
                     method: 'POST',
@@ -75,7 +78,9 @@ const AuthContext = ({ children }) => {
                 setLoading(false)
             }
         })
-        return unsubscribe()
+        return ()=>{
+            unsubscribe()
+        }
     }, [])
 
     const authData = {
