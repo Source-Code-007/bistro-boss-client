@@ -31,19 +31,19 @@ const UserDashboardPayment = () => {
     const price = parseFloat(totalPrice.toFixed(2))
 
 
-    const options = {
-        mode: 'payment',
-        amount: price * 100,
-        currency: 'usd',
-        // Fully customizable with appearance API.
-            theme: 'stripe',
-    };
+    // const options = {
+    //     mode: 'payment',
+    //     amount: price * 100,
+    //     currency: 'usd',
+    //     // Fully customizable with appearance API.
+    //     theme: 'stripe',
+    // };
 
     return (
         <div className="min-h-screen bg-slate-100 flex justify-center items-center">
-            <div className="bg-slate-50 shadow p-20">
+            <div className="bg-slate-50 shadow p-20 w-3/6">
                 <h2 className="py-8 font-bold text-3xl text-center">Payment</h2>
-                <Elements stripe={stripePromise} options={options}>
+                <Elements stripe={stripePromise}>
                     <CheckoutForm price={price}></CheckoutForm>
                 </Elements>
             </div>
