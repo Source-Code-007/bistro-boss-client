@@ -52,7 +52,6 @@ const AuthContext = ({ children }) => {
     // user state monitoring
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currUser => {
-            console.log(currUser);
 
             if (currUser) {
 
