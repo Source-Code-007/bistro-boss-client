@@ -88,8 +88,8 @@ const CheckoutForm = ({ price, cartItems }) => {
         const productsId = cartItems.map(item => item._id)
         const { id, amount } = paymentIntent
         const paymentInfo = { trxId: id, user: user?.displayName, email: user?.email, productsId, menusId, amount, date: new Date() }
-        console.log(paymentInfo);
 
+        // TODO: Don't work cart reset func after payment
         axiosSecure.post(`/payment-info`, { paymentInfo }).then(res => {
           if (res.data.insertedId) {
             toast.success('payment successfully!', {
@@ -102,6 +102,7 @@ const CheckoutForm = ({ price, cartItems }) => {
               progress: undefined,
               theme: "light",
             });
+            axiosSecure.delete('/cart-reset', { email: user?.email }).then(res => { console.log(res) }).catch(e => console.log(e.message))
           }
         }).catch(e => setError(e.message))
       }

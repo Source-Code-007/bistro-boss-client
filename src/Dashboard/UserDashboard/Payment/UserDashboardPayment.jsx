@@ -27,9 +27,7 @@ const UserDashboardPayment = () => {
     }
 
 
-    const totalPrice = cartItems?.reduce((acc, item) => acc + item.price * item.quantity, 0)
-    const price = parseFloat(totalPrice)*100
-
+    const price = cartItems?.reduce((acc, item) => acc + item.price * item.quantity, 0)
 
     // const options = {
     //     mode: 'payment',

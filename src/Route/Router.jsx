@@ -16,6 +16,7 @@ import AddAnItem from "../Dashboard/AdminDashboard/AddAnItem";
 import AdminRoute from "../PrivateRoute/AdminRoute";
 import AdminDashBoardHome from "../Dashboard/AdminDashboard/AdminDashBoardHome";
 import UserDashboardPayment from "../Dashboard/UserDashboard/Payment/UserDashboardPayment";
+import UserDashboardPaymentHistory from "../Dashboard/UserDashboard/UserDashboardPaymentHistory";
 
 export const router = createBrowserRouter([
     {
@@ -64,6 +65,10 @@ export const router = createBrowserRouter([
             {
                 path: '/user-dashboard-payment',
                 element: <PrivateRoute><UserDashboardPayment></UserDashboardPayment></PrivateRoute>
+            },
+            {
+                path: '/user-dashboard-payment-history',
+                element: <PrivateRoute><UserDashboardPaymentHistory></UserDashboardPaymentHistory></PrivateRoute>
             },
             {
                 path: '/user-dashboard-give-review',

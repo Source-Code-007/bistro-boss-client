@@ -8,6 +8,7 @@ const axiosSecure = axios.create(
         baseURL: 'http://localhost:2500'
     }
 )
+
 const UseAxiosSecure = () => {
     const { signoutFunc } = useContext(authContextData)
     const navigate = useNavigate()
