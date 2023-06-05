@@ -7,6 +7,15 @@ html{
     scroll-behavior: smooth;
 }
 
+
+/* Google font */
+span, a, p, body, *{
+    font-family: 'Poppins', sans-serif;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Montserrat', sans-serif;
+}
+
 .my-container{
     @apply mx-10 sm:mx-auto max-w-lg sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl
 }
