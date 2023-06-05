@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
 
 
-const CheckoutForm = ({ price, cartItems }) => {
+const CheckoutForm = ({ price, cartItems, cartRefetch }) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -17,9 +17,11 @@ const CheckoutForm = ({ price, cartItems }) => {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    axiosSecure.post('/create-payment-intent', { price }).then((data) => {
-      setClientSecret(data.data.clientSecret)
-    });
+    if (price > 0) {
+      axiosSecure.post('/create-payment-intent', { price }).then((data) => {
+        setClientSecret(data.data.clientSecret)
+      });
+    }
   }, [price, axiosSecure]);
 
 
@@ -46,8 +48,6 @@ const CheckoutForm = ({ price, cartItems }) => {
     if (error) {
       setError(error.message);
     }
-
-
 
 
     Swal.fire({
@@ -82,8 +82,6 @@ const CheckoutForm = ({ price, cartItems }) => {
         setError('')
 
 
-
-
         const menusId = cartItems.map(item => item.itemId)
         const productsId = cartItems.map(item => item._id)
         const { id, amount } = paymentIntent
@@ -92,23 +90,26 @@ const CheckoutForm = ({ price, cartItems }) => {
         // TODO: Don't work cart reset func after payment
         axiosSecure.post(`/payment-info`, { paymentInfo }).then(res => {
           if (res.data.insertedId) {
-            toast.success('payment successfully!', {
-              position: "top-right",
-              autoClose: 1000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-            axiosSecure.delete('/cart-reset', { email: user?.email }).then(res => { console.log(res) }).catch(e => console.log(e.message))
+            // cart reset after payment
+            axiosSecure.delete(`/cart-reset?email=${user?.email}`).then(res => {
+               if(res.data.deletedCount>0){
+                cartRefetch() //refetch cart after update cart
+                toast.success('payment successfully!', {
+                  position: "top-right",
+                  autoClose: 1000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+               } 
+            }).catch(e => console.log(e.message))
           }
         }).catch(e => setError(e.message))
       }
     })
-
-
 
   };
 
@@ -118,7 +119,7 @@ const CheckoutForm = ({ price, cartItems }) => {
       {/* <PaymentElement ></PaymentElement> */}
       <CardElement ></CardElement>
       {error && <p className="text-red-500">{error}</p>}
-      <button type="submit" disabled={!stripe || !elements} className="btn btn-error btn-sm my-3 text-white">Pay</button>
+      <button type="submit" disabled={!stripe || !elements || !price} className="btn btn-error btn-sm my-3 text-white">Pay</button>
 
       {/* toast container compo */}
       <ToastContainer

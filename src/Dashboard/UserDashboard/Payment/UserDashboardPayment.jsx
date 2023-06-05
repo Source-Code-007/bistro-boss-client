@@ -8,7 +8,7 @@ import { Oval } from "react-loader-spinner";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK)
 
 const UserDashboardPayment = () => {
-    const { cartItems, isLoading, refetch } = UseCartItem()
+    const { cartItems, isLoading, refetch:cartRefetch } = UseCartItem()
 
     if (isLoading) {
         return <div className='min-h-screen flex justify-center items-center'><Oval
@@ -42,7 +42,7 @@ const UserDashboardPayment = () => {
             <div className="bg-slate-50 shadow p-14 w-3/6">
                 <h2 className="py-8 font-bold text-xl text-gray-400 text-center">You have to pay <span>${price}</span></h2>
                 <Elements stripe={stripePromise}>
-                    <CheckoutForm price={price} cartItems={cartItems}></CheckoutForm>
+                    <CheckoutForm price={price} cartItems={cartItems} cartRefetch={cartRefetch}></CheckoutForm>
                 </Elements>
             </div>
         </div>
