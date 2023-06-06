@@ -59,7 +59,7 @@ const MyCart = () => {
                             wrapperClass=""
                             visible={true}
                         />
-                    </div> :
+                    </div> : cartItems.length<1 ?  <h2 className="text-3xl font-bold text-center">No cart items here!</h2> :
                     <div className="p-10 bg-slate-50">
                     <div className="flex justify-between font-bold text-2xl my-5">
                         <h2>Total orders:{totalOrder}</h2>

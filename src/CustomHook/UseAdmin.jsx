@@ -4,10 +4,13 @@ import { authContextData } from '../Context/AuthContext';
 import axios from 'axios';
 
 const UseAdmin = () => {
-    const { user } = useContext(authContextData)
+    const { user, loading } = useContext(authContextData)
     const [isAdmin, setIsAdmin] = useState()
     const [isAdminLoading, setIsAdminLoading] = useState(true)
     useEffect(() => {
+        if(loading){
+            return
+        }
         if (user?.email) {
             axios(`http://localhost:2500/isAdmin?email=${user?.email}`)
                 .then(res => {
@@ -20,7 +23,7 @@ const UseAdmin = () => {
             setIsAdmin(false)
             setIsAdminLoading(false)
         }
-    }, [user?.email])
+    }, [user?.email, loading])
     return [isAdmin, isAdminLoading]
 };
 
